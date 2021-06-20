@@ -33,6 +33,8 @@ public class Produto implements Serializable {
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	//private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Produto() {
 	}
 
@@ -99,6 +101,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
 	
 }
