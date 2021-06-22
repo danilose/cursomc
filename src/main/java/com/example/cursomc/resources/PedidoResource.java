@@ -15,14 +15,14 @@ import com.example.cursomc.services.PedidoService;
 public class PedidoResource {
 
     @Autowired
-    PedidoService pedidoService;
+    PedidoService service;
 
     //@RequestMapping(method = RequestMethod.GET, value = "/{id}")
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<?> listar(@PathVariable Integer id) {
+    public ResponseEntity<Pedido> find(@PathVariable Integer id) {
 
-        Pedido pedido = pedidoService.buscar(id);
+        Pedido pedido = service.find(id);
 
         return ResponseEntity.ok().body(pedido);
     }

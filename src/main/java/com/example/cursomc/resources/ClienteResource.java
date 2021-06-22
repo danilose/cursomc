@@ -15,14 +15,14 @@ import com.example.cursomc.services.ClienteService;
 public class ClienteResource {
 
     @Autowired
-    ClienteService clienteService;
+    ClienteService service;
 
     //@RequestMapping(method = RequestMethod.GET, value = "/{id}")
     @GetMapping
     @RequestMapping(value = "/{id}")
-    public ResponseEntity<?> listar(@PathVariable Integer id) {
+    public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 
-        Cliente cliente = clienteService.buscar(id);
+        Cliente cliente = service.find(id);
 
         return ResponseEntity.ok().body(cliente);
     }
