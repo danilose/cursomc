@@ -13,10 +13,15 @@ import java.util.Optional;
 public class CategoriaService {
 
     @Autowired
-    private CategoriaRepository categoriaRepository;
+    private CategoriaRepository repo;
 
     public Categoria buscar(Integer id) {
-        Optional<Categoria> categoria = categoriaRepository.findById(id);
+        Optional<Categoria> categoria = repo.findById(id);
         return categoria.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
+    }
+    
+    public Categoria insert(Categoria obj) {
+    	obj.setId(null); // remove o id se tiver e isso "força" a criar um novo registro
+    	return repo.save(obj);
     }
 }
