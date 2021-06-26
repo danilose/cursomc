@@ -36,8 +36,8 @@ public class ClienteResource {
     @GetMapping
     @RequestMapping(value = "/{id}")
     public ResponseEntity<Cliente> find(@PathVariable Integer id) {
-        Cliente cliente = service.find(id);
-        return ResponseEntity.ok().body(cliente);
+        Cliente obj = service.find(id);
+        return ResponseEntity.ok().body(obj);
     }
 
     //@RequestMapping(method = RequestMethod.POST)
