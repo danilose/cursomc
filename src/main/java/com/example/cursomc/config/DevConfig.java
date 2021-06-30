@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 
 import com.example.cursomc.services.DBService;
+import com.example.cursomc.services.EmailService;
+import com.example.cursomc.services.MockEmailService;
+import com.example.cursomc.services.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
@@ -30,4 +33,8 @@ public class DevConfig {
 		return true;
 	}
 	
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
+	}
 }
