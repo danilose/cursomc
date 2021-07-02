@@ -24,9 +24,11 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
 		HttpStatus code = HttpStatus.NOT_FOUND;
 		StandardError err = new StandardError(
+				System.currentTimeMillis(), 
 				code.value(), 
 				e.getMessage(), 
-				System.currentTimeMillis()
+				code.getReasonPhrase() + ": " + "Não encontrado", 
+				request.getRequestURI()
 		);
 		return ResponseEntity.status(code).body(err);
 	}
@@ -35,9 +37,11 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> dataIntegrity(DataIntegrityException e, HttpServletRequest request) {
 		HttpStatus code = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(
+				System.currentTimeMillis(), 
 				code.value(), 
 				e.getMessage(), 
-				System.currentTimeMillis()
+				code.getReasonPhrase() + ": " + "Integridade de dados", 
+				request.getRequestURI()
 		);
 		return ResponseEntity.status(code).body(err);
 	}
@@ -45,11 +49,13 @@ public class ResourceExceptionHandler {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> validation(MethodArgumentNotValidException e, HttpServletRequest request) {
-		HttpStatus code = HttpStatus.BAD_REQUEST;
+		HttpStatus code = HttpStatus.UNPROCESSABLE_ENTITY;
 		ValidationError err = new ValidationError(
+				System.currentTimeMillis(), 
 				code.value(), 
-				"Erro de validação", 
-				System.currentTimeMillis()
+				e.getMessage(), 
+				code.getReasonPhrase() + ": " + "Erro de validação", 
+				request.getRequestURI()
 		);
 		for (FieldError x : e.getBindingResult().getFieldErrors()) {
 			err.addError(x.getField(), x.getDefaultMessage());
@@ -61,9 +67,11 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
 		HttpStatus code = HttpStatus.FORBIDDEN;
 		StandardError err = new StandardError(
+				System.currentTimeMillis(), 
 				code.value(), 
 				e.getMessage(), 
-				System.currentTimeMillis()
+				code.getReasonPhrase() + ": " + "Acesso negado", 
+				request.getRequestURI()
 		);
 		return ResponseEntity.status(code).body(err);
 	}
@@ -72,9 +80,11 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> dataIntegrity(FileException e, HttpServletRequest request) {
 		HttpStatus code = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(
+				System.currentTimeMillis(), 
 				code.value(), 
 				e.getMessage(), 
-				System.currentTimeMillis()
+				code.getReasonPhrase() + ": " + "Erro de arquivo", 
+				request.getRequestURI()
 		);
 		return ResponseEntity.status(code).body(err);
 	}
@@ -83,9 +93,11 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> dataIntegrity(AmazonServiceException e, HttpServletRequest request) {
 		HttpStatus code = HttpStatus.valueOf(e.getErrorCode());
 		StandardError err = new StandardError(
+				System.currentTimeMillis(), 
 				code.value(), 
 				e.getMessage(), 
-				System.currentTimeMillis()
+				code.getReasonPhrase() + ": " + "Erro Amazon Service", 
+				request.getRequestURI()
 		);
 		return ResponseEntity.status(code).body(err);
 	}
@@ -94,9 +106,11 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> dataIntegrity(AmazonClientException e, HttpServletRequest request) {
 		HttpStatus code = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(
+				System.currentTimeMillis(), 
 				code.value(), 
 				e.getMessage(), 
-				System.currentTimeMillis()
+				code.getReasonPhrase() + ": " + "Erro Amazon Client", 
+				request.getRequestURI()
 		);
 		return ResponseEntity.status(code).body(err);
 	}
@@ -105,9 +119,11 @@ public class ResourceExceptionHandler {
 	public ResponseEntity<StandardError> dataIntegrity(AmazonS3Exception e, HttpServletRequest request) {
 		HttpStatus code = HttpStatus.BAD_REQUEST;
 		StandardError err = new StandardError(
+				System.currentTimeMillis(), 
 				code.value(), 
 				e.getMessage(), 
-				System.currentTimeMillis()
+				code.getReasonPhrase() + ": " + "Erro Amazon S3", 
+				request.getRequestURI()
 		);
 		return ResponseEntity.status(code).body(err);
 	}
